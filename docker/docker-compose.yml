@@ -1,0 +1,48 @@
+networks:
+    redis-cluster:
+        name: redis-cluster
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: "172.63.0.0/16"
+
+services:
+    nginx:
+        container_name: ddd-nginx
+        depends_on:
+            - ddd-laravel
+        image: nginx:alpine
+        restart: always
+        networks:
+            redis-cluster:
+                ipv4_address: 172.63.0.21
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./tmp/:/tmp/
+            - ../repo:/var/www/html/repo
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf
+
+    ddd-laravel:
+        build:
+            args:
+                user: sammy
+                uid: 1000
+            context: ./
+            dockerfile: ./Dockerfile
+        container_name: ddd-laravel
+        networks:
+            redis-cluster:
+                ipv4_address: 172.63.0.22
+        restart: unless-stopped
+        working_dir: /var/www/html/repo
+        volumes:
+            - ../repo:/var/www/html/repo
+            - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+        expose:
+            - 9000
+            - 9003
+        environment:
+            PHP_IDE_CONFIG: "serverName=ddd-laravel.local"
