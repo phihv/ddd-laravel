@@ -1,0 +1,20 @@
+{
+    "name": "nwidart/auth",
+    "description": "",
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "module\\AuthApplication\\": "",
+            "module\\AuthApplication\\App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+    }
+}

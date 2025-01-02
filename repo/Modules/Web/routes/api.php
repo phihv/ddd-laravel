@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Web\Http\Controllers\WebController;
+use Modules\Web\app\Http\Controllers\UserController;
 
 /*
  *--------------------------------------------------------------------------
@@ -14,6 +14,14 @@ use Modules\Web\Http\Controllers\WebController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('web', WebController::class)->names('web');
+Route::get('/ping', function () {
+    return 'pong';
 });
+
+
+Route::post('/login', function () {
+    return 'pong';
+});
+
+Route::post('/users', [UserController::class, 'create']);
+

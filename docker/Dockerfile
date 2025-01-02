@@ -23,8 +23,8 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 # Cài đặt Redis extension (phpredis)
 RUN pecl install redis \
-    && docker-php-ext-enable redis \
-    && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
+    && docker-php-ext-enable redis
+#    && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
 
 
 # Set working directory

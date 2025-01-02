@@ -27,9 +27,6 @@ services:
 
     ddd-laravel:
         build:
-            args:
-                user: sammy
-                uid: 1000
             context: ./
             dockerfile: ./Dockerfile
         container_name: ddd-laravel
