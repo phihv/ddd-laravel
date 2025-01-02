@@ -1,0 +1,11 @@
+{
+    "name": "AuthApplication",
+    "alias": "authapplication",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        
+    ],
+    "files": []
+}
