@@ -4,5 +4,5 @@ namespace Modules\AuthApplication\Application\Ports\Inbound;
 
 interface UserCommandPort
 {
-    function create($params) :void;
+    public function create($params) :void;
 }

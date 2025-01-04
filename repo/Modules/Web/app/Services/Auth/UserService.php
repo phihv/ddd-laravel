@@ -10,6 +10,7 @@ class UserService
     {
     }
     public function create($params) :void {
+        throw new \Exception('not implemented');
         $this->userCommandPort->create($params);
     }
 }

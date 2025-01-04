@@ -7,12 +7,34 @@ use DateTime;
 class User
 {
     public function __construct(
-        string $username,
-        Email $email,
-        string $password,
-//        DateTime $createdAt
+        private ? string $username = '',
+        private ? Email $email = null,
+        private ? string $password = null,
+        private ? string $fullName = null,
     )
     {
     }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function getEmail(): ?Email
+    {
+        return $this->email;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+
+    public function getFullName(): ?string
+    {
+        return $this->fullName;
+    }
+
 
 }

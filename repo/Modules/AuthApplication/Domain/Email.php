@@ -4,8 +4,13 @@ namespace Modules\AuthApplication\Domain;
 
 class Email
 {
-    public function __construct(string $email)
+    public function __construct(private string $email)
     {
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
     }
 
 }

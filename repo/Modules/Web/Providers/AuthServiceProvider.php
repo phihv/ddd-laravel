@@ -2,13 +2,12 @@
 
 namespace Modules\Web\Providers;
 
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\AuthApplication\Application\Ports\Inbound\UserCommandPort;
 use Modules\AuthApplication\Application\UseCases\UserCommandAppService;
-use Nwidart\Modules\Traits\PathNamespace;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
+use Modules\AuthApplication\Domain\UserRepositoryPort;
+use Modules\Web\Adapters\Outbound\Auth\UserRepositoryImpl;
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +24,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        //Inbound
         $this->app->bind(UserCommandPort::class, UserCommandAppService::class);
+
+        //Outbound
+        $this->app->bind(UserRepositoryPort::class, UserRepositoryImpl::class);
     }
 }
