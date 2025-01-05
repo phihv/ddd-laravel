@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class EloquentRepository
 {
-    public function __construct(private readonly Model $model)
+    public function __construct(protected readonly Model $model)
     {
     }
 

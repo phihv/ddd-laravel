@@ -2,7 +2,6 @@
 
 namespace Modules\Web\Adapters\Inbound\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class WebController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\AuthApplication\Domain;
+namespace Modules\UserApplication\Domain;
 
 class Email
 {

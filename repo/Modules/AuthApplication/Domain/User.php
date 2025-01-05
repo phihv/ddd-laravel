@@ -2,39 +2,23 @@
 
 namespace Modules\AuthApplication\Domain;
 
-use DateTime;
+use Modules\Kernel\Utils\PasswordHasher;
+use Modules\UserApplication\Domain\Email;
 
 class User
 {
     public function __construct(
+        private ? int $id = null,
         private ? string $username = '',
         private ? Email $email = null,
         private ? string $password = null,
-        private ? string $fullName = null,
     )
     {
     }
 
-    public function getUsername(): ?string
+    public function verifyPassword(string $plainPassword): bool
     {
-        return $this->username;
+        return PasswordHasher::verify($plainPassword, $this->password);
     }
-
-    public function getEmail(): ?Email
-    {
-        return $this->email;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-
-    public function getFullName(): ?string
-    {
-        return $this->fullName;
-    }
-
 
 }

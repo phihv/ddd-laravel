@@ -2,7 +2,8 @@
 
 namespace Modules\AuthApplication\Domain;
 
+
 interface UserRepositoryPort
 {
-    public function create(User $user) :void;
+    public function findByUsername(string $username) :?User;
 }

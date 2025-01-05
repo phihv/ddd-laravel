@@ -2,8 +2,10 @@
 
 namespace Modules\Web\Providers;
 
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Web\app\Exceptions\Handler;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -36,7 +38,9 @@ class WebServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(UserServiceProvider::class);
         $this->app->register(AuthServiceProvider::class);
+        $this->app->singleton(ExceptionHandler::class, Handler::class);
     }
 
     /**

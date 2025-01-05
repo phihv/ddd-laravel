@@ -1,4 +1,5 @@
 {
     "Web": true,
-    "AuthApplication": true
+    "AuthApplication": true,
+    "UserApplication": true
 }

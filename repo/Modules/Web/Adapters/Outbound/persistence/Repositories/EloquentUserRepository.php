@@ -11,4 +11,12 @@ class EloquentUserRepository extends EloquentRepository
         parent::__construct(new EloquentUser());
         //        $this->model->setConnection('default');
     }
+
+    public function findByUsername($username, $select = '*')
+    {
+        return $this->model
+            ->select($select)
+            ->where('username', $username)
+            ->first();
+    }
 }

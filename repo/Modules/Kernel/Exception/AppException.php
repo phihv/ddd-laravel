@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Web\app\Exceptions;
+namespace Modules\Kernel\Exception;
 
 use Exception;
 
@@ -19,3 +19,4 @@ class AppException extends Exception
         return $this->errorCode;
     }
 }
+

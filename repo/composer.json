@@ -27,7 +27,9 @@
             "App\\": "app/",
             "Modules\\": "Modules/",
             "Modules\\Web\\": "Modules/Web",
-            "Modules\\AuthApplication\\": "Modules/AuthApplication"
+            "Modules\\AuthApplication\\": "Modules/AuthApplication",
+            "Modules\\UserApplication\\": "Modules/UserApplication",
+            "Modules\\Kernel\\": "Modules/Kernel"
         }
     },
     "autoload-dev": {

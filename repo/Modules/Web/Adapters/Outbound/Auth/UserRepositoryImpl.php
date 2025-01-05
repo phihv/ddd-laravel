@@ -12,19 +12,17 @@ class UserRepositoryImpl implements UserRepositoryPort
     {
     }
 
-    public function create(User $user): void
+    public function findByUsername(string $username): ?User
     {
-        // TODO: Implement create() method.
-        $this->userRepository->create($this->toUserArr($user));
-    }
-
-    private function toUserArr(User $user): array
-    {
-        return [
-            'username' => $user->getUsername(),
-            'fullName' => $user->getFullName(),
-            'password' => $user->getPassword(),
-            'email' => $user->getEmail()->getEmail(),
-        ];
+        // TODO: Implement findByUsername() method.
+        $user = $this->userRepository->findByUsername($username);
+        if (!$user) {
+            return null;
+        }
+        return new User(
+            id: $user->id,
+            username: $user->username,
+            password: $user->password,
+        );
     }
 }

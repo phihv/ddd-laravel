@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Web\Adapters\Inbound\Controllers\UserController;
+use Modules\Web\Adapters\Inbound\Controllers\AuthenticationController;
 
 /*
  *--------------------------------------------------------------------------
@@ -18,10 +19,6 @@ Route::get('/ping', function () {
     return 'pong';
 });
 
-
-Route::post('/login', function () {
-    return 'pong';
-});
-
-Route::post('/users', [UserController::class, 'create']);
+Route::post('/users', [UserController::class, 'apiCreate']);
+Route::post('/login', [AuthenticationController::class, 'apiLogin']);
 

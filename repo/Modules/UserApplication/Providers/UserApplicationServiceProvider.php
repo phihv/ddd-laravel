@@ -1,14 +1,14 @@
 <?php
 
-namespace Modules\AuthApplication\Providers;
+namespace Modules\UserApplication\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class AuthApplicationServiceProvider extends ServiceProvider
+class UserApplicationServiceProvider extends ServiceProvider
 {
-    protected string $moduleName = 'AuthApplication';
+    protected string $moduleName = 'UserApplication';
 
-    protected string $moduleNameLower = 'authapplication';
+    protected string $moduleNameLower = 'userapplication';
 
     /**
      * Boot the application events.

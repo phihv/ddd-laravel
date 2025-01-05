@@ -2,12 +2,17 @@
 
 namespace Modules\Web\Adapters\Inbound\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Modules\Web\app\Services\Auth\UserService;
+use Modules\Web\app\Dto\ApiResponse;
+use Modules\Web\app\Services\User\UserService;
 
-class UserController extends Co
+
+class UserController extends Controller
 {
-    public function create(Request $request) {
-        resolve(UserService::class)->create($request);
+    public function apiCreate(Request $request): JsonResponse
+    {
+        $data = resolve(UserService::class)->create($request);
+        return ApiResponse::success(data: $data);
     }
 }

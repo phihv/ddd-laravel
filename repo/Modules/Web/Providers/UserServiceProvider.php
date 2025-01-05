@@ -3,13 +3,13 @@
 namespace Modules\Web\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\AuthApplication\Application\Ports\Inbound\AuthCommandPort;
-use Modules\AuthApplication\Domain\UserRepositoryPort;
-use Modules\AuthApplication\Application\UseCases\AuthCommandAppService;
-use Modules\Web\Adapters\Outbound\Auth\UserRepositoryImpl;
+use Modules\UserApplication\Application\Ports\Inbound\UserCommandPort;
+use Modules\UserApplication\Application\UseCases\UserCommandAppService;
+use Modules\UserApplication\Domain\UserRepositoryPort;
+use Modules\Web\Adapters\Outbound\User\UserRepositoryImpl;
 
 
-class AuthServiceProvider extends ServiceProvider
+class UserServiceProvider extends ServiceProvider
 {
 
     /**
@@ -25,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     public function register(): void
     {
         //Inbound
-        $this->app->bind(AuthCommandPort::class, AuthCommandAppService::class);
+        $this->app->bind(UserCommandPort::class, UserCommandAppService::class);
 
         //Outbound
         $this->app->bind(UserRepositoryPort::class, UserRepositoryImpl::class);

@@ -3,6 +3,9 @@
 namespace Modules\Web\app\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Modules\Kernel\Exception\AppException;
+use Modules\Kernel\Exception\ErrorCode;
+use Modules\Web\app\Dto\ApiResponse;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -32,8 +35,12 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        dd(1);
-        return parent::render($request, $e);
+        if ($e instanceof AppException) {
+            return ApiResponse::error($e->getMessage(), $e->getErrorCode());
+        }
+
+        return ApiResponse::error($e->getMessage(), ErrorCode::UNCATEGORIZED_EXCEPTION->value);
+//        return parent::render($request, $e);
     }
 }
 
