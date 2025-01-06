@@ -12,7 +12,7 @@ class AuthenticationController extends Controller
 {
     public function apiLogin(Request $request): JsonResponse
     {
-        $data = resolve(AuthService::class)->login($request);
-        return ApiResponse::success(message: $data ? 'success' : 'fail');
+        $token = resolve(AuthService::class)->login($request);
+        return ApiResponse::success(data: ['token' => $token]);
     }
 }

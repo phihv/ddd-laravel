@@ -10,7 +10,8 @@ class AuthService
     {
     }
 
-    public function login($request):bool {
+    public function login($request): ?string
+    {
         return $this->authCommandPort->login($request['username'] ?? '', $request['password'] ?? '');
     }
 }
