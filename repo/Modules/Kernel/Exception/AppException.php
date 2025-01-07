@@ -6,15 +6,18 @@ use Exception;
 
 class AppException extends Exception
 {
-    private string $errorCode;
 
-    public function __construct(string $message, string $errorCode, int $statusCode = 400)
+    public function __construct(
+        private ErrorCode $errorCode,
+        string            $message = null,
+        int               $statusCode = 400
+    )
     {
+        $message = $message ?? $this->errorCode->getMessage();
         parent::__construct($message, $statusCode);
-        $this->errorCode = $errorCode;
     }
 
-    public function getErrorCode(): string
+    public function getErrorCode(): ErrorCode
     {
         return $this->errorCode;
     }

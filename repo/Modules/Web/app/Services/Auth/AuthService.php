@@ -14,4 +14,9 @@ class AuthService
     {
         return $this->authCommandPort->login($request['username'] ?? '', $request['password'] ?? '');
     }
+
+    public function introspect($token): ?array
+    {
+        return $this->authCommandPort->introspect($token);
+    }
 }

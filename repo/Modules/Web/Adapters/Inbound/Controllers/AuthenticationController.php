@@ -15,4 +15,10 @@ class AuthenticationController extends Controller
         $token = resolve(AuthService::class)->login($request);
         return ApiResponse::success(data: ['token' => $token]);
     }
+
+    public function apiIntrospect(Request $request): JsonResponse
+    {
+        $decode = resolve(AuthService::class)->introspect($request->token ?? '');
+        return ApiResponse::success(data: ['claims' => $decode]);
+    }
 }

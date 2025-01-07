@@ -2,7 +2,7 @@
 
 namespace Modules\AuthApplication\Domain;
 
-class JwtClaims
+class JWTClaimSet
 {
     public function __construct(
         private ?string $issuer = null,
@@ -16,7 +16,7 @@ class JwtClaims
     )
     {
         $this->issuer = $issuer ?? env('APP_URL');
-        $this->subject = $issuer ?? 'phihv.soict@gmail.com';
+        $this->subject = $subject ?? 'phihv.soict@gmail.com';
         $this->audience = $audience ?? [env('APP_URL') . '/api'];
         $this->issuedAt = $issuedAt ?? time();
         $this->expiration = $expiration ?? $this->issuedAt + 3600;

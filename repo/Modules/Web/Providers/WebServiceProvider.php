@@ -5,6 +5,7 @@ namespace Modules\Web\Providers;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Web\Adapters\Inbound\Middlewares\JWTValidatorMiddleware;
 use Modules\Web\app\Exceptions\Handler;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
@@ -41,6 +42,7 @@ class WebServiceProvider extends ServiceProvider
         $this->app->register(UserServiceProvider::class);
         $this->app->register(AuthServiceProvider::class);
         $this->app->singleton(ExceptionHandler::class, Handler::class);
+        $this->app['router']->aliasMiddleware('validate-token', JWTValidatorMiddleware::class);
     }
 
     /**

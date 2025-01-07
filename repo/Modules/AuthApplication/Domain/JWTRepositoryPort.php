@@ -3,9 +3,9 @@
 namespace Modules\AuthApplication\Domain;
 
 
-interface JwtRepositoryPort
+interface JWTRepositoryPort
 {
     public function generateToken(array $claims) :?string;
-    public function decodeToken(string $token) :?string;
+    public function decodeToken(string $token) :?array;
     public function invalidateToken(string $token) :?string;
 }

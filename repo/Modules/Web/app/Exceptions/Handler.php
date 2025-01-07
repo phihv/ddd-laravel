@@ -35,12 +35,11 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        if ($e instanceof AppException) {
-            return ApiResponse::error($e->getMessage(), $e->getErrorCode());
-        }
-
-        return ApiResponse::error($e->getMessage(), ErrorCode::UNCATEGORIZED_EXCEPTION->value);
-//        return parent::render($request, $e);
+        $errorCode = match (true) {
+            $e instanceof AppException => $e->getErrorCode(),
+            default => ErrorCode::UNCATEGORIZED_EXCEPTION
+        };
+        return ApiResponse::error($errorCode->getMessage(), $errorCode->value);
     }
 }
 

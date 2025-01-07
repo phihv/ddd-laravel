@@ -20,5 +20,11 @@ Route::get('/ping', function () {
 });
 
 Route::post('/users', [UserController::class, 'apiCreate']);
+
 Route::post('/login', [AuthenticationController::class, 'apiLogin']);
+
+Route::middleware(['validate-token'])->group(function () {
+    Route::post('/introspect', [AuthenticationController::class, 'apiIntrospect']);
+});
+
 

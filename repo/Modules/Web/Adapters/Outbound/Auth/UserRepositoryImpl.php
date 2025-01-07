@@ -22,7 +22,8 @@ class UserRepositoryImpl implements UserRepositoryPort
         return new User(
             id: $user->id,
             username: $user->username,
-            password: $user->password,
+            email: $user->email,
+            password: $user->password
         );
     }
 }
