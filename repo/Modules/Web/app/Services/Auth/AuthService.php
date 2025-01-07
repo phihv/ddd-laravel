@@ -3,6 +3,7 @@
 namespace Modules\Web\app\Services\Auth;
 
 use Modules\AuthApplication\Application\Ports\Inbound\AuthCommandPort;
+use Modules\AuthApplication\Domain\JWTClaimSet;
 
 class AuthService
 {
@@ -15,7 +16,7 @@ class AuthService
         return $this->authCommandPort->login($request['username'] ?? '', $request['password'] ?? '');
     }
 
-    public function introspect($token): ?array
+    public function introspect($token): ?JWTClaimSet
     {
         return $this->authCommandPort->introspect($token);
     }

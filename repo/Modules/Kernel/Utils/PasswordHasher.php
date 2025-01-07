@@ -2,6 +2,8 @@
 
 namespace Modules\Kernel\Utils;
 
+use Hash;
+
 class PasswordHasher
 {
     public static function hash(string $plainPassword): string
@@ -12,7 +14,7 @@ class PasswordHasher
 
     public static function verify(string $plainPassword, string $hashedPassword): bool
     {
-        return \Hash::check($plainPassword, $hashedPassword);
+        return Hash::check($plainPassword, $hashedPassword);
     }
 
 }

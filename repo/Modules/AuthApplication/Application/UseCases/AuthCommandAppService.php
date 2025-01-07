@@ -30,7 +30,7 @@ class AuthCommandAppService implements AuthCommandPort
         return null;
     }
 
-    public function introspect(string $token): ?array
+    public function introspect(string $token): ?JWTClaimSet
     {
         // TODO: Implement introspect() method.
         return $this->jwtRepositoryPort->decodeToken($token);

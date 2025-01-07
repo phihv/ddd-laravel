@@ -35,6 +35,7 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
+        dd($e);
         $errorCode = match (true) {
             $e instanceof AppException => $e->getErrorCode(),
             default => ErrorCode::UNCATEGORIZED_EXCEPTION

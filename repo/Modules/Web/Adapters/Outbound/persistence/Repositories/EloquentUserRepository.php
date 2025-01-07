@@ -19,4 +19,12 @@ class EloquentUserRepository extends EloquentRepository
             ->where('username', $username)
             ->first();
     }
+
+    public function findByEmail(string $email, $select = '*')
+    {
+        return $this->model
+            ->select($select)
+            ->where('email', $email)
+            ->first();
+    }
 }

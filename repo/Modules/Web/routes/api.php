@@ -24,7 +24,7 @@ Route::post('/users', [UserController::class, 'apiCreate']);
 Route::post('/login', [AuthenticationController::class, 'apiLogin']);
 
 Route::middleware(['validate-token'])->group(function () {
-    Route::post('/introspect', [AuthenticationController::class, 'apiIntrospect']);
+    Route::post('/introspect', [AuthenticationController::class, 'apiIntrospect'])->middleware('check-permission:permission_name');
 });
 
 

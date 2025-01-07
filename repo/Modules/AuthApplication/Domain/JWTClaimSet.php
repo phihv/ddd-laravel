@@ -16,7 +16,7 @@ class JWTClaimSet
     )
     {
         $this->issuer = $issuer ?? env('APP_URL');
-        $this->subject = $subject ?? 'phihv.soict@gmail.com';
+//        $this->subject = $subject ?? 'phihv.soict@gmail.com';
         $this->audience = $audience ?? [env('APP_URL') . '/api'];
         $this->issuedAt = $issuedAt ?? time();
         $this->expiration = $expiration ?? $this->issuedAt + 3600;
@@ -27,6 +27,11 @@ class JWTClaimSet
     public function addClaim(string $key, mixed $value): void
     {
         $this->customClaims[$key] = $value;
+    }
+
+    public function getSubject(): ?string
+    {
+        return $this->subject;
     }
 
     public function toArray(): array

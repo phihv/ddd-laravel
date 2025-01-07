@@ -18,7 +18,7 @@ class AuthenticationController extends Controller
 
     public function apiIntrospect(Request $request): JsonResponse
     {
-        $decode = resolve(AuthService::class)->introspect($request->token ?? '');
-        return ApiResponse::success(data: ['claims' => $decode]);
+        $claimSet = resolve(AuthService::class)->introspect($request->token ?? '');
+        return ApiResponse::success(data: ['jwt_claim_set' => $claimSet->toArray()]);
     }
 }

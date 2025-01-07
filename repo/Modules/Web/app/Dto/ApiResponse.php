@@ -2,7 +2,7 @@
 
 namespace Modules\Web\app\Dto;
 
-use \Illuminate\Http\JsonResponse;
+use Illuminate\Http\JsonResponse;
 
 class ApiResponse
 {

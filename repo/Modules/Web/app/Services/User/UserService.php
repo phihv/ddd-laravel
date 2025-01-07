@@ -18,4 +18,9 @@ class UserService
             'fullName' => $user->getFullName(),
         ];
     }
+
+    public function getInfoUserByEmail(string $email)
+    {
+
+    }
 }

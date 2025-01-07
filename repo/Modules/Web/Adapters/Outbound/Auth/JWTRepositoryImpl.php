@@ -2,10 +2,12 @@
 
 namespace Modules\Web\Adapters\Outbound\Auth;
 
+use Exception;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Firebase\JWT\SignatureInvalidException;
+use Modules\AuthApplication\Domain\JWTClaimSet;
 use Modules\AuthApplication\Domain\JWTRepositoryPort;
 use Modules\Kernel\Exception\AppException;
 use Modules\Kernel\Exception\ErrorCode;
@@ -31,7 +33,7 @@ class JWTRepositoryImpl implements JWTRepositoryPort
     /**
      * @throws AppException
      */
-    public function decodeToken(string $token): ?array
+    public function decodeToken(string $token): ?JWTClaimSet
     {
         // TODO: Implement decodeToken() method.
         try {
@@ -40,12 +42,12 @@ class JWTRepositoryImpl implements JWTRepositoryPort
             }
             $headers = new stdClass();
             $decoded = JWT::decode($token, new Key($this->secretKey, $this->algorithm), $headers);
-            return (array)$decoded;
+            return JWTClaimSet::createFromArray((array)$decoded);
         } catch (ExpiredException $e) {
             throw new AppException(ErrorCode::JWT_EXPIRED_EXCEPTION);
         } catch (SignatureInvalidException $e) {
             throw new AppException(ErrorCode::JWT_SIGNATURE_INVALID_EXCEPTION);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new AppException(ErrorCode::JWT_INVALID);
         }
 

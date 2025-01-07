@@ -9,12 +9,14 @@ use Modules\Kernel\Exception\ErrorCode;
 use Modules\Web\Adapters\Outbound\persistence\Repositories\EloquentUserRepository;
 use Modules\Web\app\Services\Auth\AuthService;
 
-class JWTValidatorMiddleware
+class CheckPermissionMiddleware
 {
     /**
      * @throws AppException
      */
-    public function handle(Request $request, Closure $next) {
+    public function handle(Request $request, Closure $next, string $permission) {
+        $user = Auth::user();
+
         $token = $request->bearerToken();
         $claimSet = resolve(AuthService::class)->introspect($token);
         $user = resolve(EloquentUserRepository::class)->findByEmail($claimSet->getSubject());

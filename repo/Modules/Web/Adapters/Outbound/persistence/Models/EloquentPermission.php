@@ -4,9 +4,9 @@ namespace Modules\Web\Adapters\Outbound\persistence\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class EloquentUser extends Authenticatable
+class EloquentPermission extends Authenticatable
 {
-    protected $table   = 'users';
+    protected $table = 'permissions';
 
     public $timestamps = false;
 
@@ -19,6 +19,7 @@ class EloquentUser extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(EloquentUser::class, 'user_roles', 'user_id', 'role_id');
+        return $this->belongsToMany(EloquentRole::class, 'role_permissions', 'permission_id', 'role_id');
     }
+
 }
