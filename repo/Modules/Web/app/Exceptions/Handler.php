@@ -35,12 +35,12 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        dd($e);
         $errorCode = match (true) {
             $e instanceof AppException => $e->getErrorCode(),
+            $e instanceof \Illuminate\Validation\UnauthorizedException => ErrorCode::UNAUTHORIZED_EXCEPTION,
             default => ErrorCode::UNCATEGORIZED_EXCEPTION
         };
-        return ApiResponse::error($errorCode->getMessage(), $errorCode->value);
+        return ApiResponse::error($errorCode->getMessage(), $errorCode->value, $errorCode->getHttpStatus());
     }
 }
 

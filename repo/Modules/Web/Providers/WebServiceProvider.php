@@ -4,7 +4,10 @@ namespace Modules\Web\Providers;
 
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
+use Modules\Web\Adapters\Inbound\Middlewares\CheckPermissionMiddleware;
 use Modules\Web\Adapters\Inbound\Middlewares\JWTValidatorMiddleware;
 use Modules\Web\app\Exceptions\Handler;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -24,6 +27,8 @@ class WebServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+//        $this->logQuery();
+
         $this->registerCommands();
         $this->registerCommandSchedules();
         $this->registerTranslations();
@@ -32,17 +37,32 @@ class WebServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
     }
 
+    private function logQuery(): void
+    {
+        DB::listen(function ($query) {
+            Log::info('SQL Query: ' . $query->sql);
+            Log::info('Bindings: ' . json_encode($query->bindings));
+            Log::info('Time: ' . $query->time . 'ms');
+        });
+    }
+
     /**
      * Register the service provider.
      */
     public function register(): void
     {
+        $this->middlewareRegister();
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(UserServiceProvider::class);
         $this->app->register(AuthServiceProvider::class);
         $this->app->singleton(ExceptionHandler::class, Handler::class);
+    }
+
+    private function middlewareRegister(): void
+    {
         $this->app['router']->aliasMiddleware('validate-token', JWTValidatorMiddleware::class);
+        $this->app['router']->aliasMiddleware('permission', CheckPermissionMiddleware::class);
     }
 
     /**

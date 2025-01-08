@@ -31,4 +31,9 @@ class UserRepositoryImpl implements UserRepositoryPort
             password: $user->password
         );
     }
+
+    public function getPermissionsByUserId(int $userId): ?array
+    {
+        return $this->userRepository->getPermissionsByUserId($userId);
+    }
 }

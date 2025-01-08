@@ -2,19 +2,20 @@
 
 namespace Modules\AuthApplication\Application\UseCases;
 
-use Modules\AuthApplication\Application\Ports\Inbound\AuthCommandPort;
+use Modules\AuthApplication\Application\Ports\Inbound\AuthPort;
+use Modules\AuthApplication\Domain\AuthDomainService;
 use Modules\AuthApplication\Domain\JWTClaimSet;
 use Modules\AuthApplication\Domain\JWTRepositoryPort;
 use Modules\AuthApplication\Domain\User;
 use Modules\AuthApplication\Domain\UserDomainService;
 use Modules\AuthApplication\Domain\UserRepositoryPort;
 
-class AuthCommandAppService implements AuthCommandPort
+class AuthAppService implements AuthPort
 {
     public function __construct(
         private UserRepositoryPort $userRepositoryPort,
         private JWTRepositoryPort  $jwtRepositoryPort,
-//        private UserDomainService $userDomainService,
+        private AuthDomainService $authDomainService,
     )
     {
     }
@@ -34,5 +35,11 @@ class AuthCommandAppService implements AuthCommandPort
     {
         // TODO: Implement introspect() method.
         return $this->jwtRepositoryPort->decodeToken($token);
+    }
+
+    public function checkPermission(int $userId, string $permission): bool
+    {
+        // TODO: Implement checkPermission() method.
+        return $this->authDomainService->checkPermission($userId, $permission);
     }
 }

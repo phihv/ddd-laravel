@@ -2,12 +2,12 @@
 
 namespace Modules\Web\app\Services\Auth;
 
-use Modules\AuthApplication\Application\Ports\Inbound\AuthCommandPort;
+use Modules\AuthApplication\Application\Ports\Inbound\AuthPort;
 use Modules\AuthApplication\Domain\JWTClaimSet;
 
 class AuthService
 {
-    public function __construct(private readonly AuthCommandPort $authCommandPort)
+    public function __construct(private readonly AuthPort $authCommandPort)
     {
     }
 
@@ -19,5 +19,10 @@ class AuthService
     public function introspect($token): ?JWTClaimSet
     {
         return $this->authCommandPort->introspect($token);
+    }
+
+    public function checkPermission(int $userId, string $permission)
+    {
+        return $this->authCommandPort->checkPermission($userId, $permission);
     }
 }

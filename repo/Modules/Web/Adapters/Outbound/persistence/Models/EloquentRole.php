@@ -2,20 +2,13 @@
 
 namespace Modules\Web\Adapters\Outbound\persistence\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class EloquentRole extends Authenticatable
+class EloquentRole extends Model
 {
     protected $table   = 'roles';
 
     public $timestamps = false;
-
-    protected $fillable = [
-        'username',
-        'fullName',
-        'email',
-        'password'
-    ];
 
     public function users()
     {

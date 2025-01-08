@@ -19,6 +19,6 @@ class EloquentUser extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(EloquentUser::class, 'user_roles', 'user_id', 'role_id');
+        return $this->belongsToMany(EloquentRole::class, 'user_roles', 'user_id', 'role_id');
     }
 }
