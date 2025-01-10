@@ -21,11 +21,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        DB::listen(function ($query) {
-            // Ghi log câu SQL, bindings và thời gian thực thi
-            Log::info('SQL Query: ' . $query->sql);
-            Log::info('Bindings: ' . json_encode($query->bindings));
-            Log::info('Time: ' . $query->time . 'ms');
-        });
     }
 }

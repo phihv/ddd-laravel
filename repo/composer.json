@@ -30,7 +30,7 @@
             "Modules\\Web\\": "Modules/Web",
             "Modules\\AuthApplication\\": "Modules/AuthApplication",
             "Modules\\UserApplication\\": "Modules/UserApplication",
-            "Modules\\Kernel\\": "Modules/Kernel"
+            "Modules\\Shared\\": "Modules/Shared"
         }
     },
     "autoload-dev": {

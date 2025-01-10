@@ -7,13 +7,15 @@ use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Firebase\JWT\SignatureInvalidException;
-use Modules\AuthApplication\Domain\JWTClaimSet;
-use Modules\AuthApplication\Domain\JWTRepositoryPort;
-use Modules\Kernel\Exception\AppException;
-use Modules\Kernel\Exception\ErrorCode;
+use Illuminate\Support\Facades\Cache;
+use Modules\AuthApplication\Domain\AccessToken;
+use Modules\AuthApplication\Domain\TokenRepositoryPort;
+use Modules\Shared\Exception\AppException;
+use Modules\Shared\Exception\ErrorCode;
+use Modules\Web\Adapters\Outbound\persistence\Repositories\EloquentRefreshTokenRepository;
 use stdClass;
 
-class JWTRepositoryImpl implements JWTRepositoryPort
+class TokenRepositoryImpl implements TokenRepositoryPort
 {
     private string $secretKey;
     private string $algorithm;
@@ -24,7 +26,7 @@ class JWTRepositoryImpl implements JWTRepositoryPort
         $this->algorithm = env('JWT_ALGORITHM', 'HS256');
     }
 
-    public function generateToken(array $claims): ?string
+    public function generateAccessToken(array $claims): ?string
     {
         // TODO: Implement generateToken() method.
         return JWT::encode($claims, $this->secretKey, $this->algorithm);
@@ -33,7 +35,7 @@ class JWTRepositoryImpl implements JWTRepositoryPort
     /**
      * @throws AppException
      */
-    public function decodeToken(string $token): ?JWTClaimSet
+    public function decodeAccessToken(string $token): ?AccessToken
     {
         // TODO: Implement decodeToken() method.
         try {
@@ -42,7 +44,7 @@ class JWTRepositoryImpl implements JWTRepositoryPort
             }
             $headers = new stdClass();
             $decoded = JWT::decode($token, new Key($this->secretKey, $this->algorithm), $headers);
-            return JWTClaimSet::createFromArray((array)$decoded);
+            return AccessToken::createFromArray((array)$decoded);
         } catch (ExpiredException $e) {
             throw new AppException(ErrorCode::JWT_EXPIRED_EXCEPTION);
         } catch (SignatureInvalidException $e) {
@@ -53,9 +55,8 @@ class JWTRepositoryImpl implements JWTRepositoryPort
 
     }
 
-    public function invalidateToken(string $token): ?string
+    public function storeRefreshToken(array $tokenData): void
     {
-        // TODO: Implement invalidateToken() method.
-        return null;
+        resolve(EloquentRefreshTokenRepository::class)->create($tokenData);
     }
 }

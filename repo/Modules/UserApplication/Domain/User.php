@@ -2,7 +2,7 @@
 
 namespace Modules\UserApplication\Domain;
 
-use Modules\Kernel\Utils\PasswordHasher;
+use Modules\Shared\Utils\PasswordHasher;
 
 class User
 {

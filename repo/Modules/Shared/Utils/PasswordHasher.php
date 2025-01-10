@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Kernel\Utils;
+namespace Modules\Shared\Utils;
 
 use Hash;
 

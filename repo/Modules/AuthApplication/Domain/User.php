@@ -3,7 +3,7 @@
 namespace Modules\AuthApplication\Domain;
 
 use Arr;
-use Modules\Kernel\Utils\PasswordHasher;
+use Modules\Shared\Utils\PasswordHasher;
 use Modules\UserApplication\Domain\Email;
 
 class User

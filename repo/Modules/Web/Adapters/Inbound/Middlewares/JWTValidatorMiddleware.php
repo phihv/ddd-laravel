@@ -4,8 +4,8 @@ namespace Modules\Web\Adapters\Inbound\Middlewares;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Modules\Kernel\Exception\AppException;
-use Modules\Kernel\Exception\ErrorCode;
+use Modules\Shared\Exception\AppException;
+use Modules\Shared\Exception\ErrorCode;
 use Modules\Web\Adapters\Outbound\persistence\Repositories\EloquentUserRepository;
 use Modules\Web\app\Services\Auth\AuthService;
 

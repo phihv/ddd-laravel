@@ -2,8 +2,9 @@
 
 namespace Modules\AuthApplication\Domain;
 
-class JWTClaimSet
+class AccessToken
 {
+    private string $token;
     public function __construct(
         private ?string $issuer = null,
         private ?string $subject = null,
@@ -22,6 +23,15 @@ class JWTClaimSet
         $this->expiration = $expiration ?? $this->issuedAt + 3600;
         $this->notBefore = $notBefore ?? $this->issuedAt;
         $this->jwtId = $jwtId ?? uniqid('jwt_', true);
+    }
+
+    public function toResponseData(TokenRepositoryPort $tokenRepository): array
+    {
+        return [
+            'token' => $tokenRepository->generateAccessToken($this->toArray()),
+            'tokenType' => 'Bearer',
+            'expiresAt' => $this->expiration
+        ];
     }
 
     public function addClaim(string $key, mixed $value): void

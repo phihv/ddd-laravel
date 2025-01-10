@@ -4,8 +4,8 @@ namespace Modules\Web\Adapters\Outbound\Auth;
 
 use Modules\AuthApplication\Domain\User;
 use Modules\AuthApplication\Domain\UserRepositoryPort;
-use Modules\Kernel\Exception\AppException;
-use Modules\Kernel\Exception\ErrorCode;
+use Modules\Shared\Exception\AppException;
+use Modules\Shared\Exception\ErrorCode;
 use Modules\Web\Adapters\Outbound\persistence\Repositories\EloquentUserRepository;
 
 class UserRepositoryImpl implements UserRepositoryPort

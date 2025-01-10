@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Web\Adapters\Inbound\Controllers\UserController;
-use Modules\Web\Adapters\Inbound\Controllers\AuthenticationController;
+use Modules\Web\Adapters\Inbound\Controllers\AuthController;
 
 /*
  *--------------------------------------------------------------------------
@@ -18,8 +18,8 @@ use Modules\Web\Adapters\Inbound\Controllers\AuthenticationController;
 Route::get('/ping', function () {return 'pong';});
 
 Route::post('/users', [UserController::class, 'apiCreate']);
-Route::post('/login', [AuthenticationController::class, 'apiLogin']);
+Route::post('/login', [AuthController::class, 'apiLogin']);
 
 Route::middleware(['validate-token'])->group(function () {
-    Route::post('/introspect', [AuthenticationController::class, 'apiIntrospect'])->middleware('permission:introspect');
+    Route::post('/introspect', [AuthController::class, 'apiIntrospect'])->middleware('permission:introspect');
 });
