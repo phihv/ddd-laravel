@@ -19,6 +19,7 @@ Route::get('/ping', function () {return 'pong';});
 
 Route::post('/users', [UserController::class, 'apiCreate']);
 Route::post('/login', [AuthController::class, 'apiLogin']);
+Route::post('/refresh-token', [AuthController::class, 'apiRefreshAccessToken']);
 
 Route::middleware(['validate-token'])->group(function () {
     Route::post('/introspect', [AuthController::class, 'apiIntrospect'])->middleware('permission:introspect');

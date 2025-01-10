@@ -2,20 +2,20 @@
 
 namespace Modules\AuthApplication\Domain;
 
+use Modules\Shared\Exception\AppException;
 use Random\RandomException;
 
 class RefreshToken
 {
     private string $hashedToken = '';
-    /**
-     * @throws RandomException
-     */
+
     public function __construct(
         private ?int    $userId = null,
         private ?string $device = null,
         private ?string $ip = null,
         private ?string $tokenType = 'Bearer',
         private ?string $token = null,
+        private ?int    $version = null,
         private ?int    $expiresAt = null,
     )
     {
@@ -24,17 +24,38 @@ class RefreshToken
         $this->setHashedToken();
     }
 
-    /**
-     * @throws RandomException
-     */
+    public function getIp(): ?string
+    {
+        return $this->ip;
+    }
+
+    public function setExpiresAt(?int $expiresAt): void
+    {
+        $this->expiresAt = $expiresAt;
+    }
+
+    public function getDevice(): ?string
+    {
+        return $this->device;
+    }
+
+
     private function generateToken(): string
     {
-        return bin2hex(random_bytes(40));
+        try {
+            return bin2hex(random_bytes(40));
+        } catch (RandomException $e) {
+        }
     }
 
     private function setHashedToken(): void
     {
         $this->hashedToken = hash_hmac('sha256', $this->token, env('APP_KEY'));
+    }
+
+    public function getHashedToken(): string
+    {
+        return $this->hashedToken;
     }
 
     public function getToken(): string
@@ -45,6 +66,11 @@ class RefreshToken
     public function isExpired(): bool
     {
         return time() > $this->expiresAt;
+    }
+
+    public function isValid()
+    {
+
     }
 
     public function toStoreData()

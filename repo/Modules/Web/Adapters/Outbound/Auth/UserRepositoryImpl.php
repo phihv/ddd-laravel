@@ -14,9 +14,7 @@ class UserRepositoryImpl implements UserRepositoryPort
     {
     }
 
-    /**
-     * @throws AppException
-     */
+
     public function findByUsername(string $username): ?User
     {
         // TODO: Implement findByUsername() method.
@@ -28,7 +26,8 @@ class UserRepositoryImpl implements UserRepositoryPort
             id: $user->id,
             username: $user->username,
             email: $user->email,
-            password: $user->password
+            password: $user->password,
+            token_version: $user->token_version,
         );
     }
 

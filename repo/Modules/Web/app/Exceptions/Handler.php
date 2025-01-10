@@ -3,7 +3,7 @@
 namespace Modules\Web\app\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Modules\Shared\Exception\AppException;
+use Illuminate\Http\JsonResponse;
 use Modules\Shared\Exception\ErrorCode;
 use Modules\Web\app\Dto\ApiResponse;
 use Throwable;
@@ -33,13 +33,13 @@ class Handler extends ExceptionHandler
     }
 
 
-    public function render($request, Throwable $e)
+    public function render($request, Throwable $e): JsonResponse
     {
         dd($e);
         $errorCode = match (true) {
-            $e instanceof AppException => $e->getErrorCode(),
-            $e instanceof \Illuminate\Validation\UnauthorizedException => ErrorCode::UNAUTHORIZED_EXCEPTION,
-            default => ErrorCode::UNCATEGORIZED_EXCEPTION
+            $e instanceof \Modules\Shared\Exception\AppException => $e->getErrorCode(),
+            $e instanceof \Illuminate\Validation\UnauthorizedException => ErrorCode::UNAUTHORIZED,
+            default => ErrorCode::UNCATEGORIZED
         };
         return ApiResponse::error($errorCode->getMessage(), $errorCode->value, $errorCode->getHttpStatus());
     }

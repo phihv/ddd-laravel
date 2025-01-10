@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Modules\AuthApplication\Application\Ports\Inbound\AuthPort;
 use Modules\AuthApplication\Domain\AccessToken;
 
-class AuthService
+readonly class AuthService
 {
-    public function __construct(private readonly AuthPort $authCommandPort)
+    public function __construct(private AuthPort $authPort)
     {
     }
 
@@ -18,7 +18,7 @@ class AuthService
             'ip' => $request->ip(),
             'name' => $request->header('User-Agent')
         ];
-        $tokens = $this->authCommandPort->login($request['username'] ?? '', $request['password'] ?? '', $deviceInfo);
+        $tokens = $this->authPort->login($request['username'] ?? '', $request['password'] ?? '', $deviceInfo);
         $cookie = [
             'refresh_token',
             $tokens['refreshToken']['token'],
@@ -34,22 +34,23 @@ class AuthService
         ];
     }
 
-    public function refreshAccessToken(Request $request)
+    public function refreshAccessToken(Request $request): ?array
     {
         $deviceInfo = [
             'ip' => $request->ip(),
             'name' => $request->header('User-Agent')
         ];
-        return $this->authCommandPort->refreshAccessToken($request['refreshToken'], $deviceInfo);
+        $refreshToken = $request->cookie('refresh_token');
+        return $this->authPort->refreshAccessToken($refreshToken, $deviceInfo);
     }
 
     public function introspect($token): ?AccessToken
     {
-        return $this->authCommandPort->introspect($token);
+        return $this->authPort->introspect($token);
     }
 
     public function checkPermission(int $userId, string $permission): bool
     {
-        return $this->authCommandPort->checkPermission($userId, $permission);
+        return $this->authPort->checkPermission($userId, $permission);
     }
 }

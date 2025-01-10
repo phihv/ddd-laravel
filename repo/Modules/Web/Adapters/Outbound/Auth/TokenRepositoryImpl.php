@@ -46,11 +46,11 @@ class TokenRepositoryImpl implements TokenRepositoryPort
             $decoded = JWT::decode($token, new Key($this->secretKey, $this->algorithm), $headers);
             return AccessToken::createFromArray((array)$decoded);
         } catch (ExpiredException $e) {
-            throw new AppException(ErrorCode::JWT_EXPIRED_EXCEPTION);
+            throw new AppException(ErrorCode::ACCESS_TOKEN_EXPIRED);
         } catch (SignatureInvalidException $e) {
-            throw new AppException(ErrorCode::JWT_SIGNATURE_INVALID_EXCEPTION);
+            throw new AppException(ErrorCode::ACCESS_TOKEN_SIGNATURE_INVALID);
         } catch (Exception $e) {
-            throw new AppException(ErrorCode::JWT_INVALID);
+            throw new AppException(ErrorCode::ACCESS_TOKEN_INVALID);
         }
 
     }
@@ -58,5 +58,10 @@ class TokenRepositoryImpl implements TokenRepositoryPort
     public function storeRefreshToken(array $tokenData): void
     {
         resolve(EloquentRefreshTokenRepository::class)->create($tokenData);
+    }
+
+    public function getInfoRefreshToken(string $hashedRefreshToken)
+    {
+        return resolve(EloquentRefreshTokenRepository::class)->findByToken($hashedRefreshToken);
     }
 }

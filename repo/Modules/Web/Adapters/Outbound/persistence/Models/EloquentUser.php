@@ -14,7 +14,8 @@ class EloquentUser extends Authenticatable
         'username',
         'fullName',
         'email',
-        'password'
+        'password',
+        'token_version'
     ];
 
     public function roles()

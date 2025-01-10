@@ -25,13 +25,19 @@ class AccessToken
         $this->jwtId = $jwtId ?? uniqid('jwt_', true);
     }
 
-    public function toResponseData(TokenRepositoryPort $tokenRepository): array
+    public function toResponseData(): array
     {
         return [
-            'token' => $tokenRepository->generateAccessToken($this->toArray()),
+            'token' => $this->token,
             'tokenType' => 'Bearer',
             'expiresAt' => $this->expiration
         ];
+    }
+
+    public function setToken($token): void
+    {
+        $this->token = $token;
+
     }
 
     public function addClaim(string $key, mixed $value): void

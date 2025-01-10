@@ -13,9 +13,15 @@ class User
         private ? string $username = '',
         private ? string $email = null,
         private ? string $password = null,
+        private ? int $token_version = null,
         private ? array $roles = null,
     )
     {
+    }
+
+    public function getTokenVersion(): ?int
+    {
+        return $this->token_version;
     }
 
     public function getId(): ?int
