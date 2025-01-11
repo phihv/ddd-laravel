@@ -3,16 +3,38 @@
 namespace Modules\AuthApplication\Domain;
 
 use Arr;
+use Modules\Shared\Traits\EntityTrait;
 
 class Role
 {
+    use EntityTrait;
     public function __construct(
-        private ? int $id,
-        private ? string $name,
-        private ? string $description,
-        private ? array $permissions
+        private ? int $id = null,
+        private ? string $name = null,
+        private ? string $description = null,
+        private ? array $permissions = null,
     )
     {
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function getPermissions(): ?array
+    {
+        return $this->permissions;
     }
 
     public function addPermission(int|array $per): void

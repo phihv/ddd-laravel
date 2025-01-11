@@ -3,10 +3,12 @@
 namespace Modules\AuthApplication\Domain;
 
 use Modules\Shared\Exception\AppException;
+use Modules\Shared\Traits\EntityTrait;
 use Random\RandomException;
 
 class RefreshToken
 {
+    use EntityTrait;
     private string $hashedToken = '';
 
     public function __construct(

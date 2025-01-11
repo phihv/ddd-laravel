@@ -13,18 +13,24 @@ enum ErrorCode: int
     case REFRESH_TOKEN_INVALID = 1005;
     case REFRESH_TOKEN_EXPIRED = 1006;
     case DATA_NOT_FOUND = 1007;
+    case REFLECTION = 1008;
+    case REQUIRE_NOT_NULL = 1009;
+    case VALIDATION = 1010;
 
     public function getMessage(): string
     {
         return match ($this) {
-            self::UNCATEGORIZED => 'Lỗi không xác định.',
-            self::UNAUTHORIZED => 'Thông tin xác thực sai hoặc thiếu.',
-            self::FORBIDDEN => 'Truy cập không hợp lệ.',
-            self::ACCESS_TOKEN_EXPIRED => 'Access token hết hạn.',
-            self::ACCESS_TOKEN_SIGNATURE_INVALID => 'Access token signature không hợp lệ.',
-            self::ACCESS_TOKEN_INVALID => 'Access token không hợp lệ.',
-            self::DATA_NOT_FOUND => 'Không tìm thấy dữ liệu.',
-            default => 'Kiểm tra lại thông báo lỗi.',
+            self::UNCATEGORIZED => 'Lỗi không xác định',
+            self::UNAUTHORIZED => 'Thông tin xác thực sai hoặc thiếu',
+            self::FORBIDDEN => 'Truy cập không hợp lệ',
+            self::ACCESS_TOKEN_EXPIRED => 'Access token hết hạn',
+            self::ACCESS_TOKEN_SIGNATURE_INVALID => 'Access token signature không hợp lệ',
+            self::ACCESS_TOKEN_INVALID => 'Access token không hợp lệ',
+            self::DATA_NOT_FOUND => 'Không tìm thấy dữ liệu',
+            self::REFLECTION => 'Đối tượng ánh xạ lỗi',
+            self::REQUIRE_NOT_NULL => 'Yêu cầu không được rỗng',
+            self::VALIDATION => 'Dữ liệu không hợp lệ',
+            default => 'Kiểm tra lại thông báo lỗi',
         };
     }
 
@@ -33,6 +39,7 @@ enum ErrorCode: int
         return match ($this) {
             self::UNAUTHORIZED => 401,
             self::FORBIDDEN => 404,
+            self::VALIDATION => 422,
             default => 400,
         };
     }

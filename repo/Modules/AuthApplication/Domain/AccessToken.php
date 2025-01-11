@@ -20,7 +20,7 @@ class AccessToken
 //        $this->subject = $subject ?? 'phihv.soict@gmail.com';
         $this->audience = $audience ?? [env('APP_URL') . '/api'];
         $this->issuedAt = $issuedAt ?? time();
-        $this->expiration = $expiration ?? $this->issuedAt + 3600;
+        $this->expiration = $expiration ?? $this->issuedAt + config('token.access_token_lifetime');
         $this->notBefore = $notBefore ?? $this->issuedAt;
         $this->jwtId = $jwtId ?? uniqid('jwt_', true);
     }

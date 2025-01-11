@@ -13,7 +13,7 @@ class AppException extends Exception
         int               $statusCode = 400
     )
     {
-        $message = $message ?? $this->errorCode->getMessage();
+        $message = "{$this->errorCode->getMessage()}: {$message}" ?? "{$this->errorCode->getMessage()}.";
         parent::__construct($message, $statusCode);
     }
 

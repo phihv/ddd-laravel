@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use Modules\Web\Adapters\Inbound\Middlewares\CheckPermissionMiddleware;
-use Modules\Web\Adapters\Inbound\Middlewares\JWTValidatorMiddleware;
+use Modules\Web\Adapters\Inbound\Middlewares\AccessTokenMiddleware;
 use Modules\Web\app\Exceptions\Handler;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
@@ -61,7 +61,7 @@ class WebServiceProvider extends ServiceProvider
 
     private function middlewareRegister(): void
     {
-        $this->app['router']->aliasMiddleware('validate-token', JWTValidatorMiddleware::class);
+        $this->app['router']->aliasMiddleware('validate-token', AccessTokenMiddleware::class);
         $this->app['router']->aliasMiddleware('permission', CheckPermissionMiddleware::class);
     }
 

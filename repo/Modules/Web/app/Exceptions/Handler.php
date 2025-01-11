@@ -6,6 +6,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Modules\Shared\Exception\ErrorCode;
 use Modules\Web\app\Dto\ApiResponse;
+use ReflectionException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -35,12 +36,14 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e): JsonResponse
     {
-        dd($e);
         $errorCode = match (true) {
             $e instanceof \Modules\Shared\Exception\AppException => $e->getErrorCode(),
+            $e instanceof ReflectionException =>  ErrorCode::REFLECTION,
+            $e instanceof \Illuminate\Validation\ValidationException =>  ErrorCode::VALIDATION,
             $e instanceof \Illuminate\Validation\UnauthorizedException => ErrorCode::UNAUTHORIZED,
             default => ErrorCode::UNCATEGORIZED
         };
+        dd($e->errors());
         return ApiResponse::error($errorCode->getMessage(), $errorCode->value, $errorCode->getHttpStatus());
     }
 }

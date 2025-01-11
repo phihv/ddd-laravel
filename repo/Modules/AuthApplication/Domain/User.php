@@ -3,11 +3,14 @@
 namespace Modules\AuthApplication\Domain;
 
 use Arr;
+use Modules\Shared\Traits\EntityTrait;
 use Modules\Shared\Utils\PasswordHasher;
-use Modules\UserApplication\Domain\Email;
+
 
 class User
 {
+    use EntityTrait;
+
     public function __construct(
         private ? int $id = null,
         private ? string $username = '',

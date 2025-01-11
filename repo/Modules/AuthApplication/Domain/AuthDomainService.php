@@ -10,7 +10,7 @@ use Random\RandomException;
 readonly class AuthDomainService
 {
     public function __construct(
-        private UserRepositoryPort $userRepositoryPort,
+        private UserRepositoryPort  $userRepositoryPort,
         private TokenRepositoryPort $tokenRepositoryPort
     )
     {
