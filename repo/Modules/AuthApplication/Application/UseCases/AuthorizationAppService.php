@@ -4,16 +4,11 @@ namespace Modules\AuthApplication\Application\UseCases;
 
 use Illuminate\Validation\UnauthorizedException;
 use Modules\AuthApplication\Application\Ports\Inbound\AuthorizationPort;
-use Modules\AuthApplication\Domain\AuthDomainService;
 use Modules\AuthApplication\Domain\AccessToken;
-use Modules\AuthApplication\Domain\Permission;
-use Modules\AuthApplication\Domain\PermissionRepositoryPort;
+use Modules\AuthApplication\Domain\AuthDomainService;
 use Modules\AuthApplication\Domain\RefreshToken;
-use Modules\AuthApplication\Domain\Role;
-use Modules\AuthApplication\Domain\RoleRepositoryPort;
 use Modules\AuthApplication\Domain\TokenRepositoryPort;
 use Modules\AuthApplication\Domain\UserRepositoryPort;
-use Modules\Shared\Exception\AppException;
 
 
 readonly class AuthorizationAppService implements AuthorizationPort

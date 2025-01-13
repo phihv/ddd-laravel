@@ -37,7 +37,7 @@ enum ErrorCode: int
     public function getHttpStatus(): string
     {
         return match ($this) {
-            self::UNAUTHORIZED => 401,
+            self::UNAUTHORIZED, self::ACCESS_TOKEN_EXPIRED, self::ACCESS_TOKEN_SIGNATURE_INVALID, self::ACCESS_TOKEN_INVALID => 401,
             self::FORBIDDEN => 404,
             self::VALIDATION => 422,
             default => 400,

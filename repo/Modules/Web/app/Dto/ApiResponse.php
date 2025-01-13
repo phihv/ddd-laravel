@@ -15,13 +15,14 @@ class ApiResponse
         ];
         return response()->json($responseData);
     }
-    public static function error(string $message, int $errorCode, int $httpStatus = 400): JsonResponse
+    public static function error(string $message, int $errorCode, int $httpStatus = 400, array $data = null): JsonResponse
     {
 
         $responseData =  [
             'success' => false,
             'message' => $message,
             'error_code' => $errorCode,
+            'data' => $data
         ];
         return response()->json($responseData, $httpStatus);
     }

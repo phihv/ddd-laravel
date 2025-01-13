@@ -2,6 +2,8 @@
 
 namespace Modules\AuthApplication\Domain;
 
+use Modules\Shared\Exception\AppException;
+use Modules\Shared\Exception\ErrorCode;
 use Modules\Shared\Traits\EntityTrait;
 
 class Permission
@@ -13,6 +15,9 @@ class Permission
         private ? string $description = null,
     )
     {
+        if (empty($this->name)) {
+            throw new AppException(ErrorCode::REQUIRE_NOT_NULL, "name");
+        }
     }
 
     public function getId(): ?int

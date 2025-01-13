@@ -2,15 +2,11 @@
 
 namespace Modules\Web\Adapters\Outbound\Auth;
 
-use Auth;
 use Modules\AuthApplication\Domain\Role;
 use Modules\AuthApplication\Domain\RoleRepositoryPort;
-use Modules\AuthApplication\Domain\User;
 use Modules\Shared\Exception\AppException;
 use Modules\Shared\Exception\ErrorCode;
 use Modules\Web\Adapters\Outbound\persistence\Repositories\EloquentRoleRepository;
-use Modules\Web\Adapters\Outbound\persistence\Repositories\EloquentUserRepository;
-use function PHPUnit\Framework\isEmpty;
 
 readonly class RoleRepositoryImpl implements RoleRepositoryPort
 {

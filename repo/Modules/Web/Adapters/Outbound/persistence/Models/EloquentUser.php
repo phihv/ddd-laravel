@@ -9,7 +9,7 @@ class EloquentUser extends Authenticatable
 {
     protected $table   = 'users';
     public $timestamps = false;
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function roles()
     {

@@ -31,12 +31,13 @@ readonly class UserRepositoryImpl implements UserRepositoryPort
         return $this->userRepository->getPermissionsByUserId($userId);
     }
 
-    public function findById(int $id): ?User
+    public function findById(int $id, $withRoles = false): ?User
     {
         $user = $this->userRepository->find($id);
-        if (empty($user) || isEmpty($user)) {
-            throw new AppException(ErrorCode::DATA_NOT_FOUND);
+        if (empty($user->toArray())) {
+            throw new AppException(ErrorCode::DATA_NOT_FOUND, "user");
         }
+        $user['roles'] = $withRoles ? $user->roles()->pluck('role_id')->toArray() : null;
         return User::createFromArray($user->toArray());
     }
 

@@ -2,20 +2,13 @@
 
 namespace Modules\AuthApplication\Application\UseCases;
 
-use Illuminate\Validation\UnauthorizedException;
 use Modules\AuthApplication\Application\Ports\Inbound\AuthenticatorPort;
-use Modules\AuthApplication\Application\Ports\Inbound\AuthorizationPort;
 use Modules\AuthApplication\Domain\AuthDomainService;
-use Modules\AuthApplication\Domain\AccessToken;
 use Modules\AuthApplication\Domain\Permission;
 use Modules\AuthApplication\Domain\PermissionRepositoryPort;
-use Modules\AuthApplication\Domain\RefreshToken;
 use Modules\AuthApplication\Domain\Role;
 use Modules\AuthApplication\Domain\RoleRepositoryPort;
-use Modules\AuthApplication\Domain\TokenRepositoryPort;
 use Modules\AuthApplication\Domain\UserRepositoryPort;
-use Modules\Shared\Exception\AppException;
-use Modules\Shared\Exception\ErrorCode;
 
 
 readonly class AuthenticatorAppService implements AuthenticatorPort
@@ -43,13 +36,13 @@ readonly class AuthenticatorAppService implements AuthenticatorPort
 
     public function createPermission(array $data): void
     {
-        $permission = new Permission(name: $data['name'] ?? '', description: $data['description']);
+        $permission = new Permission(name: $data['name'] ?? '', description: $data['description'] ?? '');
         $this->permissionRepositoryPort->save($permission);
     }
 
     public function addUserRole(int $userId, int $roleId): void
     {
-        $user = $this->userRepositoryPort->findById($userId);
+        $user = $this->userRepositoryPort->findById($userId, true);
         $user->addRole($roleId);
         $this->userRepositoryPort->save($user);
     }
